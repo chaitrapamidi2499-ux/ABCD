@@ -1,4 +1,4 @@
-# ABCD – A Little Space to Create & Connect
+# ABCD – Any Body Can Draw
 
 **ABCD** is a beginner-friendly outdoor art circle for adults (21+), created to bring people together through creativity, self-expression, and meaningful connections.
 
@@ -36,7 +36,7 @@ Instagram: [@chaitra.artz](https://www.instagram.com/chaitra.artz/)
 
 ## Our Philosophy
 
-*Come as you are. Create as you feel. Leave a little lighter.*
+*A little time to create, a little space to breathe, and a lot of joy to take home.*
 
 ---
 
