@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ABCD – Any Body Can Draw by Crafterina</title>
+  <meta name="description" content="ABCD – Any Body Can Draw. A recreational Sunday morning art gathering by Crafterina. No skills, no rules, just art." />
+  <link rel="icon" href="data:," />
+  <style>
+/* ABCD – Any Body Can Draw
+   Palette: blue. Page #F5F9FD, panels #DCE8F5, mid blue #7FA7CF, text-safe blue #1F4E79, accent #4A90C2.
+   Accent blue is used for decoration and focus only. Text uses dark ink and deep blue for contrast. */
+
+:root {
+  --ivory: #F5F9FD;       /* page background (very light blue-white) */
+  --beige: #DCE8F5;       /* soft blue panels */
+  --sage: #7FA7CF;        /* mid blue fills */
+  --sage-deep: #1F4E79;   /* text-safe blue for links and primary buttons */
+  --gold: #4A90C2;        /* accent blue for decoration and focus only, never body text */
+  --blue: #2C6AA6;        /* ABCD title and brand */
+  --ink: #1B2A3A;
+  --ink-soft: #4F5F70;
+  --paper-edge: rgba(27, 42, 58, 0.08);
+
+  --radius: 14px;
+  --max: 980px;
+  --font-body: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--ink);
+  background-color: var(--ivory);
+  /* subtle paper texture */
+  background-image: radial-gradient(rgba(27, 42, 58, 0.035) 1px, transparent 1px);
+  background-size: 18px 18px;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+a { color: var(--sage-deep); }
+a:focus-visible, button:focus-visible, summary:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+h1, h2, h3 { font-family: var(--font-display); font-weight: 600; line-height: 1.2; margin: 0 0 0.5em; }
+h2 { font-size: clamp(1.5rem, 4vw, 2rem); }
+h3 { font-size: 1.15rem; margin-top: 1.4em; }
+p { margin: 0 0 1em; }
+ul, ol { padding-left: 1.25em; margin: 0 0 1em; }
+li { margin-bottom: 0.5em; }
+code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; background: var(--beige); padding: 0.15em 0.45em; border-radius: 6px; }
+
+.visually-hidden {
+  position: absolute !important; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap;
+}
+.skip-link {
+  position: absolute; left: -999px; top: 0; background: var(--ink); color: var(--ivory);
+  padding: 0.5rem 1rem; z-index: 100;
+}
+.skip-link:focus { left: 1rem; top: 1rem; }
+
+.small { font-size: 0.9rem; color: var(--ink-soft); }
+.note { font-style: italic; color: var(--ink-soft); border-left: 3px solid var(--gold); padding-left: 0.9rem; }
+.host-grid { display: grid; gap: 2rem; align-items: start; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); max-width: var(--max); margin: 0 auto; }
+.host-photo { width: 100%; max-width: 360px; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--radius); border: 6px solid var(--ivory); box-shadow: 0 2px 0 var(--paper-edge), 0 10px 24px rgba(27, 42, 58, 0.12); }
+.host-signoff { font-family: var(--font-display); font-style: italic; }
+.host-actions { justify-content: flex-start; }
+.host-name { font-family: var(--font-display); font-size: 1.25rem; font-weight: 600; margin-bottom: 0.4em; }
+.tagline-small { font-weight: 600; letter-spacing: 0.04em; color: var(--sage-deep); }
+
+/* Header */
+.site-header {
+  position: sticky; top: 0; z-index: 10;
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: 0.5rem 1rem; padding: 0.75rem 1.25rem;
+  background: rgba(245, 249, 253, 0.95);
+  border-bottom: 1px solid var(--paper-edge);
+  backdrop-filter: blur(6px);
+}
+.brand {
+  font-family: var(--font-display); font-weight: 700; font-size: 1.35rem;
+  letter-spacing: 0.12em; color: var(--sage-deep); text-decoration: none;
+}
+.site-nav { display: flex; gap: 0.9rem; overflow-x: auto; max-width: 100%; }
+.site-nav a {
+  color: var(--ink); text-decoration: none; font-size: 0.92rem; white-space: nowrap;
+  padding: 0.2rem 0;
+  background-image: linear-gradient(var(--gold), var(--gold));
+  background-size: 0 2px; background-repeat: no-repeat; background-position: 0 100%;
+  transition: background-size 0.2s ease;
+}
+.site-nav a:hover { background-size: 100% 2px; }
+
+/* Hero */
+.hero {
+  position: relative; overflow: hidden;
+  max-width: var(--max); margin: 0 auto;
+  padding: 3.5rem 1.25rem 3rem; text-align: center;
+}
+.eyebrow { text-transform: uppercase; letter-spacing: 0.18em; font-size: 0.8rem; color: var(--sage-deep); margin-bottom: 0.25rem; }
+.hero h1 {
+  font-size: clamp(4.5rem, 16vw, 8rem); letter-spacing: 0.06em; margin: 0;
+  line-height: 1; color: var(--sage-deep);
+}
+.tagline { font-family: var(--font-display); font-size: clamp(1rem, 3vw, 1.25rem); letter-spacing: 0.08em; margin: 0.75rem 0 1.25rem; }
+.lead { max-width: 36rem; margin: 0 auto 1.25rem; color: var(--ink-soft); font-size: 1.05rem; }
+.status { display: inline-block; background: var(--beige); padding: 0.4rem 0.9rem; border-radius: 999px; font-size: 0.92rem; margin: 0 0 1.5rem; }
+.status:empty { display: none; }
+
+.doodle { position: absolute; fill: none; stroke: var(--gold); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; opacity: 0.8; pointer-events: none; }
+.doodle-sun { width: 90px; height: 90px; top: 1rem; right: 0.5rem; }
+.doodle-squiggle { width: 160px; height: 32px; bottom: 1.25rem; left: 50%; transform: translateX(-50%); stroke: var(--sage); }
+
+/* Buttons */
+.actions { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; margin: 1rem 0; }
+.btn {
+  display: inline-block; padding: 0.8rem 1.4rem; border-radius: 999px;
+  font-weight: 600; font-size: 0.98rem; text-decoration: none; border: 2px solid transparent;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn-primary { background: var(--sage-deep); color: var(--ivory); }
+.btn-primary:hover { background: #163A5C; }
+.btn-ghost { background: transparent; color: var(--ink); border-color: var(--sage); }
+.btn-ghost:hover { background: var(--beige); }
+.btn.is-disabled, .btn[aria-disabled="true"] { background: var(--beige); color: var(--ink-soft); cursor: not-allowed; transform: none; }
+
+/* Facts band */
+.facts-band { background: var(--beige); border-top: 1px dashed var(--sage); border-bottom: 1px dashed var(--sage); }
+.facts {
+  list-style: none; margin: 0 auto; padding: 2.5rem 1.25rem; max-width: var(--max);
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 2.25rem 2rem; text-align: center;
+}
+.facts li { margin: 0; padding: 0.25rem 0.5rem; }
+.fact-label { display: block; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.72rem; color: var(--sage-deep); }
+.fact-value { display: block; font-weight: 600; line-height: 1.5; }
+
+/* Sections */
+.section { max-width: var(--max); margin: 0 auto; padding: 3rem 1.25rem; }
+.section-tint {
+  background: linear-gradient(180deg, transparent, rgba(220, 232, 245, 0.45) 20%, rgba(220, 232, 245, 0.45) 80%, transparent);
+  max-width: none; padding-left: 1.25rem; padding-right: 1.25rem;
+}
+.section-tint > * { max-width: var(--max); margin-left: auto; margin-right: auto; }
+.section-tint > h2 { margin-top: 0; }
+
+/* Timeline */
+.timeline-wrap { overflow-x: auto; margin-top: 1rem; margin-bottom: 1.5rem; }
+.timeline { width: 100%; border-collapse: collapse; background: var(--ivory); border-radius: var(--radius); overflow: hidden; box-shadow: 0 1px 0 var(--paper-edge); }
+.timeline th, .timeline td { text-align: left; padding: 0.7rem 1rem; border-bottom: 1px solid var(--beige); }
+.timeline th { background: var(--beige); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em; }
+.timeline td:first-child { white-space: nowrap; font-variant-numeric: tabular-nums; color: var(--ink-soft); }
+.timeline .part-row td { background: rgba(127, 167, 207, 0.22); }
+
+.parts { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.part-card {
+  background: var(--ivory); border: 1px solid var(--beige); border-radius: var(--radius);
+  padding: 1.25rem 1.4rem; position: relative;
+}
+.part-card h3 { margin-top: 0; }
+.part-card::before {
+  content: ""; position: absolute; top: -6px; left: 1.2rem; width: 46px; height: 10px;
+  background: var(--sage); opacity: 0.7; border-radius: 3px; transform: rotate(-3deg);
+}
+.part-card:nth-child(2)::before { background: var(--gold); opacity: 0.55; transform: rotate(2deg); }
+
+.two-col { display: grid; gap: 2rem; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+
+/* Steps */
+.steps { list-style: none; padding: 0; counter-reset: step; }
+.steps li {
+  counter-increment: step; position: relative; padding: 0.4rem 0 0.4rem 3rem; margin-bottom: 0.9rem;
+}
+.steps li::before {
+  content: counter(step); position: absolute; left: 0; top: 0.2rem;
+  width: 2.1rem; height: 2.1rem; border-radius: 50%;
+  display: grid; place-items: center; font-weight: 700;
+  background: var(--sage); color: var(--ink);
+}
+
+/* Payment */
+.payment-card {
+  display: grid; gap: 1.5rem; align-items: center; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  background: var(--ivory); border: 1px solid var(--beige); border-radius: var(--radius);
+  padding: 1.5rem; margin: 1.5rem 0;
+}
+.payment-label { text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.75rem; color: var(--sage-deep); margin: 0; }
+.upi-id { font-size: 1.15rem; margin: 0.25rem 0 0.5rem; word-break: break-all; }
+.qr-box { text-align: center; }
+.qr-box img { margin: 0 auto; width: 200px; height: 200px; object-fit: contain; border-radius: 10px; border: 1px solid var(--beige); background: #fff; }
+.qr-placeholder {
+  display: grid; place-items: center; width: 200px; height: 200px; margin: 0 auto;
+  border: 2px dashed var(--sage); border-radius: 10px; color: var(--ink-soft); font-size: 0.9rem; padding: 1rem;
+}
+
+/* FAQ */
+.faq details {
+  background: var(--ivory); border: 1px solid var(--beige); border-radius: var(--radius);
+  padding: 0.9rem 1.2rem; margin-bottom: 0.7rem;
+}
+.faq summary { cursor: pointer; font-weight: 600; list-style: none; position: relative; padding-right: 1.5rem; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; position: absolute; right: 0; top: 0; font-size: 1.2rem; color: var(--sage-deep); }
+.faq details[open] summary::after { content: "–"; }
+.faq details p { margin: 0.6rem 0 0.2rem; color: var(--ink-soft); }
+
+/* Rules */
+.rules { padding-left: 1.4rem; }
+.rules li { margin-bottom: 0.75rem; }
+.promise {
+  margin-top: 2rem; padding: 1.5rem; text-align: center;
+  background: var(--beige); border-radius: var(--radius);
+}
+.promise h3 { margin-top: 0; }
+.promise-line { font-family: var(--font-display); font-size: 1.1rem; font-style: italic; margin: 0; }
+
+/* Gallery */
+.gallery-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); margin-top: 1rem; }
+.gallery-grid figure { margin: 0; background: var(--ivory); border: 1px solid var(--beige); border-radius: var(--radius); padding: 0.5rem; }
+.gallery-grid img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 10px; }
+.gallery-grid figcaption { font-size: 0.88rem; color: var(--ink-soft); margin-top: 0.4rem; }
+.gallery-empty {
+  margin-top: 1rem; padding: 2rem 1rem; text-align: center; color: var(--ink-soft);
+  border: 2px dashed var(--sage); border-radius: var(--radius);
+}
+
+/* Footer */
+.site-footer {
+  text-align: center; padding: 2.5rem 1.25rem; margin-top: 2rem;
+  border-top: 1px solid var(--beige); background: var(--ivory);
+}
+.site-footer p { margin: 0.25rem 0; }
+
+/* Mobile */
+@media (max-width: 600px) {
+  .hero { padding-top: 2.5rem; }
+  .doodle-sun { width: 60px; height: 60px; }
+  .site-header { justify-content: center; text-align: center; }
+  .btn { width: 100%; max-width: 320px; }
+  .actions { flex-direction: column; align-items: center; }
+  .timeline td, .timeline th { padding: 0.6rem 0.7rem; font-size: 0.95rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; }
+}
+
+h2 { color: var(--sage-deep); }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="ABCD home">ABCD</a>
+    <nav class="site-nav" aria-label="Main">
+      <a href="#session">Session</a>
+      <span class="nav-sep" aria-hidden="true">|</span>
+      <a href="#register">Register</a>
+      <span class="nav-sep" aria-hidden="true">|</span>
+      <a href="#faq">FAQ</a>
+      <span class="nav-sep" aria-hidden="true">|</span>
+      <a href="#rules">Ground Rules</a>
+      <span class="nav-sep" aria-hidden="true">|</span>
+      <a href="#cancellation">Cancellation Policy</a>
+      <span class="nav-sep" aria-hidden="true">|</span>
+      <a href="#gallery">Gallery</a>
+    </nav>
+  </header>
+
+  <main id="main">
+
+    <!-- HERO -->
+    <section class="hero" id="top">
+      <p class="eyebrow">Any Body Can Draw · by Crafterina</p>
+      <h1>ABCD</h1>
+      <p class="tagline">NO SKILLS. NO RULES. JUST ART.</p>
+      <p class="lead">
+        A little space to pause, create and connect.
+      </p>
+      <!--<p class="status" aria-live="polite" data-bind="registrationStatusText"></p>-->
+      <div class="actions">
+        <a class="btn btn-primary" data-register href="#register">Register Now</a>
+        <a class="btn btn-ghost" href="#session">How The Session Works</a>
+      </div>
+
+      <svg class="doodle doodle-sun" viewBox="0 0 120 120" aria-hidden="true" focusable="false">
+        <circle cx="60" cy="60" r="24" />
+        <path d="M60 14v-6M60 112v-6M14 60H8M112 60h-6M28 28l-4-4M96 96l-4-4M92 28l4-4M24 96l-4 4" />
+      </svg>
+      <svg class="doodle doodle-squiggle" viewBox="0 0 200 40" aria-hidden="true" focusable="false">
+        <path d="M4 20 C 20 0, 36 40, 52 20 S 84 0, 100 20 S 132 40, 148 20 S 180 0, 196 20" />
+      </svg>
+    </section>
+
+    <!-- QUICK FACTS -->
+    <section class="facts-band" aria-label="Session at a glance">
+      <ul class="facts">
+        <li><span class="fact-label">When</span><span class="fact-value">Sundays<br>6:00–8:00 AM</span></li>
+        <li><span class="fact-label">Where</span><span class="fact-value">Announced every Thursday</span></li>
+        <li><span class="fact-label">Who</span><span class="fact-value">21+ <br> up to 12 people</span></li>
+        <li><span class="fact-label">Fee</span><span class="fact-value">₹100 per person</span></li>
+        <li><span class="fact-label">Bring</span><span class="fact-value">A Water Bottle &amp; Good Vibes</span></li>
+      </ul>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="section" id="about">
+      <h2>So, What's ABCD?</h2>
+      <p>
+        ABCD stands for <strong>Any Body Can Draw</strong>. It's a recreational art gathering for anyone who
+        wants to make things, slow down and enjoy the process. You don't need experience, a plan or a finished
+        piece. You just need to show up.
+      </p>
+      <p class="note">
+        ABCD is a recreational art gathering. It is not art therapy, and it is not a therapeutic or counselling service.
+      </p>
+    </section>
+
+    <!-- ABOUT THE HOST -->
+    <section class="section section-tint" id="host">
+      <h2>A Little Bit About Me</h2>
+      <div class="host-grid">
+        <img class="host-photo" src="assets/host.jpeg" alt="Chaitra, host of ABCD" width="1659" height="2048" loading="lazy" />
+        <div>
+          <p>Hi, I'm Chaitra! A creative soul, an art enthusiast and someone who believes that creativity should be a part of everyday life.</p>
+          <p>I've always loved exploring different art forms, creating things by hand and bringing people together through creative experiences. I started Crafterina in 2018 as a way to share that love for art with others.</p>
+          <p>Over time, I realised that art doesn't always have to be about creating something beautiful or perfect. Sometimes, it's simply about slowing down, expressing yourself, trying something new and enjoying the process.</p>
+          <p>That's what inspired me to start ABCD, a little art circle where you don't have to be an artist to enjoy being creative.</p>
+          <p>I'm here to create a space where we can make a little art, meet new people and spend some time away from our everyday routines.</p>
+          <p class="host-signoff">I can't wait to create with you! 🎨</p>
+          <div class="actions host-actions">
+            <a class="btn btn-ghost" data-instagram href="#host" target="_blank" rel="noopener" hidden>Follow My Creative Journey on Instagram</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SESSION -->
+    <section class="section section-tint" id="session">
+      <h2>How The Morning Unfolds</h2>
+      <p>Each Sunday session runs for two hours and has two parts. Timings are approximate.</p>
+
+      <div class="timeline-wrap">
+        <table class="timeline">
+          <caption class="visually-hidden">Approximate session timings</caption>
+          <thead>
+            <tr><th scope="col">Time</th><th scope="col">Activity</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>6:00–6:10 AM</td><td>Welcome and Settling In</td></tr>
+            <tr class="part-row"><td>6:10–7:00 AM</td><td><strong>Part 1 · Free Draw</strong></td></tr>
+            <tr><td>7:00–7:10 AM</td><td>Short Break and Introduction to the Prompt</td></tr>
+            <tr class="part-row"><td>7:10–7:45 AM</td><td><strong>Part 2 · Guided Art Reflection</strong></td></tr>
+            <tr><td>7:45–7:55 AM</td><td>Sharing Experiences</td></tr>
+            <tr><td>7:55–8:00 AM</td><td>Wrap-up</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="parts">
+        <article class="part-card">
+          <h3>Part 1 · Free Draw</h3>
+          <p>
+            Draw, doodle, colour or illustrate whatever you like. Use plain paper or the printed colouring sheets
+            available on site. There's no prompt and no right way to do it.
+          </p>
+        </article>
+        <article class="part-card">
+          <h3>Part 2 · Guided Art Reflection</h3>
+          <p>
+            Everyone gets the same creative reflection prompt, inspired by art therapy prompts. You can reflect
+            quietly on paper and share your experience only if you want to. This is a creative exercise, not
+            professional art therapy.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- WHAT TO BRING / VENUE -->
+    <section class="section" id="bring">
+      <h2>Come Empty-Handed</h2>
+      <div class="two-col">
+        <div>
+          <h3>Nothing, Really</h3>
+          <p>All art materials are provided. Just arrive and enjoy the session.</p>
+          <p>You're welcome to bring your own water bottle.</p>
+          <p class="small">Materials include sketch and colouring paper, pencils, erasers, crayons, colour pencils, sketch pens and glitter pens.</p>
+        </div>
+        <div>
+          <h3>The Venue</h3>
+          <p data-bind="venueAnnouncement"></p>
+          <p>The exact park location is not published in advance. You'll receive the location details after you register.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- REGISTER & PAY -->
+    <section class="section section-tint" id="register">
+      <h2>Save Your Spot</h2>
+      <p>
+        Registration fee is <strong>₹100 per person</strong>. Seats are allotted on a first-come, first-served basis.
+        Registration closes once 12 registrations are confirmed.
+      </p>
+
+      <ol class="steps">
+        <li>
+          <strong>Register here.</strong> Click the button below and fill in the registration form.
+        </li>
+        <li>
+          <strong>Pay ₹100</strong> through Google Pay, PhonePe or any UPI app, and upload your payment screenshot in the form.
+        </li>
+        <li>
+          <strong>Wait for confirmation.</strong> Your registration is confirmed only after your payment is verified.
+          Location details are sent after registration.
+        </li>
+      </ol>
+
+      <div class="actions">
+        <a class="btn btn-primary" data-register href="#register">Register here</a>
+      </div>
+      <p class="small" data-bind="registrationNote"></p>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section" id="faq">
+      <h2>Questions, Answered</h2>
+      <div class="faq">
+        <details>
+          <summary>Do I need prior drawing experience?</summary>
+          <p>No. Whether you've never held a pencil or you draw every day, you belong here.</p>
+        </details>
+        <details>
+          <summary>Do I need to bring art supplies?</summary>
+          <p>No. All art materials are provided. You can bring your own water bottle.</p>
+        </details>
+        <details>
+          <summary>Is the session suitable for beginners?</summary>
+          <p>Yes. ABCD is built for beginners as much as for experienced artists. There's no good or bad art here.</p>
+        </details>
+        <details>
+          <summary>Can I attend alone?</summary>
+          <p>Yes. You don't need to come with anyone. Just come as you are.</p>
+        </details>
+        <details>
+          <summary>Is the sharing session compulsory?</summary>
+          <p>No. Sharing is always optional. You can simply enjoy creating quietly.</p>
+        </details>
+        <details>
+          <summary>Where will the session take place?</summary>
+          <p>The venue is announced every Thursday for that Sunday's session. Exact location details are sent after you register, not published here in advance.</p>
+        </details>
+        <details>
+          <summary>What happens if it rains?</summary>
+          <p>If weather conditions make it unsafe or unsuitable to hold an outdoor session, ABCD may cancel it, and registered participants receive a full refund.</p>
+        </details>
+        <details>
+          <summary>How do I confirm my registration?</summary>
+          <p>Pay ₹100, fill in the registration form and upload your payment screenshot. Your registration is confirmed once your payment is verified.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- GROUND RULES -->
+    <section class="section section-tint" id="rules">
+      <h2>Our Gentle Ground Rules</h2>
+      <ol class="rules">
+        <li><strong>There is no such thing as good or bad art.</strong> Every creation is valid. We're here to enjoy the process, not prove our skills.</li>
+        <li><strong>No experience required.</strong> Whether you've never held a paintbrush or have been creating for years, you belong here.</li>
+        <li><strong>No comparison.</strong> Don't compare your artwork with someone else's. Everyone has their own creative style and pace.</li>
+        <li><strong>No unsolicited criticism.</strong> Don't judge, correct or offer suggestions about someone's artwork unless they ask for feedback.</li>
+        <li><strong>Respect personal space.</strong> Don't touch, move or use another person's artwork or materials without permission.</li>
+        <li><strong>Sharing is always optional.</strong> You can talk about your artwork or simply enjoy creating quietly. Nobody is expected to explain what they make.</li>
+        <li><strong>Respect everyone's perspectives.</strong> Different ideas, experiences and forms of expression are welcome. No discrimination, bullying or insensitive remarks.</li>
+        <li><strong>Listen without interpreting.</strong> Don't assume what someone's artwork means or make personal judgments based on what they draw.</li>
+        <li><strong>Be present and participate at your own pace.</strong> There's no pressure to finish an artwork or follow someone else's approach.</li>
+        <li><strong>Respect confidentiality.</strong> Personal experiences shared during our gatherings stay within the group. Don't share someone's stories or photographs without consent.</li>
+        <li><strong>Photography requires consent.</strong> Always ask before photographing or recording someone or their artwork.</li>
+        <li><strong>Leave the space as you found it.</strong> Respect the park, dispose of waste responsibly and help keep our shared space clean.</li>
+      </ol>
+
+      <div class="promise">
+        <h3>Our ABCD Promise</h3>
+        <p>ABCD isn't about becoming an artist. It's about giving yourself the space to create, explore, connect and enjoy being yourself.</p>
+        <p class="promise-line">A little time to create, a little space to breathe, and a lot of joy to take home.</p>
+      </div>
+    </section>
+
+    <!-- PRIVACY & CONSENT -->
+    <section class="section" id="privacy">
+      <h2>Your Privacy, Your Call</h2>
+      <ul>
+        <li>Participant information (name, phone number and payment screenshot) is used only for registration and session-related communication.</li>
+        <li>Photos and videos are taken or shared only with permission.</li>
+        <li>Photo and video consent is a separate, optional choice on the registration form.</li>
+        <li>You are never required to agree to photography in order to attend.</li>
+      </ul>
+    </section>
+
+    <!-- CANCELLATION -->
+    <section class="section section-tint" id="cancellation">
+      <h2>Cancellation Policy</h2>
+      <p>Please read these terms before registering. By completing your registration, you agree to them.</p>
+
+      <h3>1. Participant Cancellation</h3>
+      <ul>
+        <li>Cancellations made at least 24 hours before the scheduled session are eligible for a full refund.</li>
+        <li>For cancellations made less than 24 hours before the session, you may request to reschedule to the next available session.
+          Rescheduling is subject to availability in the next session and is not guaranteed.</li>
+        <li>No-shows are not eligible for a refund.</li>
+      </ul>
+
+      <h3>2. Cancellation by ABCD</h3>
+      <p>If ABCD cancels a session for any reason, registered participants receive a full refund.</p>
+
+      <h3>3. Weather-Related Cancellations</h3>
+      <p>If weather conditions make it unsafe or unsuitable to hold an outdoor session, ABCD may cancel it, and participants receive a full refund.</p>
+
+      <h3>4. Refund Processing</h3>
+      <ul>
+        <li>Approved refunds are processed within 2–3 working days.</li>
+        <li>Refunds are issued through the original payment method or via UPI, as applicable.</li>
+      </ul>
+
+      <h3>5. Registration Policy</h3>
+      <ul>
+        <li>Registrations are individual and valid only for the selected session.</li>
+        <li>Bookings cannot be transferred to another person or converted into credits for future sessions.</li>
+        <li>A rescheduled booking cannot be transferred to another person.</li>
+      </ul>
+
+      <p class="small">For cancellation or refund queries, contact the ABCD team through the details in the Contact section below.</p>
+    </section>
+
+    <!-- GALLERY -->
+    <section class="section" id="gallery">
+      <h2>Our Moments Made Together</h2>
+      <p>Artwork and photos from our sessions, shared only with consent.</p>
+      <div class="gallery-grid" id="gallery-grid"></div>
+      <p class="gallery-empty" id="gallery-empty">Photos from our sessions will appear here once they've been shared with consent.</p>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section section-tint" id="contact">
+      <h2>Say Hello!</h2>
+      <p>Most questions are answered in the FAQ above. For anything else, send us a message on Instagram.</p>
+      <div class="actions">
+        <a class="btn btn-ghost" id="instagram-link" data-instagram href="#contact" target="_blank" rel="noopener" hidden>Message Us on Instagram</a>
+      </div>
+      <p class="small" id="contact-placeholder">The Instagram link will appear here once it's added.</p>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p><strong>ABCD</strong> · Any Body Can Draw · Crafterina</p>
+    <p class="small">Recreational art gathering.</p>
+    <p class="small">© <span id="year"></span> ABCD by Crafterina</p>
+  </footer>
+
+  <script>
+/*
+ * ABCD site settings.
+ * Edit this file only. Everything on the page is driven from here.
+ *
+ * Anything written as [LIKE-THIS] is a placeholder. It stays visible on the
+ * page until you replace it, so you can see what still needs filling in.
+ */
+window.ABCD_CONFIG = {
+
+  /* ---------- UPDATE BEFORE EACH SUNDAY ---------- */
+
+  // "open" or "closed". Closing turns every Register button into a disabled notice.
+  registrationStatus: "open",
+
+  // Date of the next session, shown in the hero.
+  nextSessionDate: "[ADD-NEXT-SUNDAY-DATE]",
+
+  // Venue text. Keep it generic until the venue is announced on Thursday.
+  // Never publish the exact park location here.
+  venueAnnouncement:
+    "The venue for each Sunday session is announced every Thursday. Check back then for this week's location.",
+
+  /* ---------- REGISTRATION ---------- */
+
+  // Google Form URL. Every Register button points here.
+  googleFormUrl: "https://forms.gle/zjk8wghfamEWxo6Z6",
+
+  /* ---------- INSTAGRAM ---------- */
+
+  instagramUrl: "https://www.instagram.com/chaitra.artz/",
+
+  /* ---------- ART GALLERY ----------
+   * Add an entry per photo or artwork, only after consent has been given.
+   * Put image files in assets/gallery/.
+   */
+  gallery: [
+    { src: "assets/gallery/1.1.JPG", caption: "COMING SOON" },
+    { src: "assets/gallery/2.1.JPG", caption: "COMING SOON" },
+    { src: "assets/gallery/3.1.JPG", caption: "COMING SOON" },
+    { src: "assets/gallery/3.1.JPG", caption: "COMING SOON" }
+  ]
+};
+
+</script>
+  <script>
+(function () {
+  "use strict";
+
+  var cfg = window.ABCD_CONFIG || {};
+
+  function isPlaceholder(value) {
+    return !value || /^\[.*\]$/.test(String(value).trim());
+  }
+
+  function setText(selector, value) {
+    document.querySelectorAll(selector).forEach(function (el) {
+      el.textContent = value;
+    });
+  }
+
+  // Text bound from config (textContent only, so nothing is injected as HTML).
+  document.querySelectorAll("[data-bind]").forEach(function (el) {
+    var key = el.getAttribute("data-bind");
+    if (key in cfg && typeof cfg[key] === "string") {
+      el.textContent = cfg[key];
+    }
+  });
+
+  var isOpen = cfg.registrationStatus === "open";
+  var formReady = !isPlaceholder(cfg.googleFormUrl);
+
+  // Status line in the hero.
+  var statusText;
+  if (!isOpen) {
+    statusText = "Registrations are closed for the next session.";
+  } else if (isPlaceholder(cfg.nextSessionDate)) {
+    statusText = "Registrations are open.";
+  } else {
+    statusText = "Registrations are open for " + cfg.nextSessionDate + ".";
+  }
+  setText('[data-bind="registrationStatusText"]', statusText);
+
+  // Note under the register button.
+  var noteText;
+  if (!isOpen) {
+    noteText = "Registration is closed. Check back after the next venue announcement.";
+  } else {
+    noteText = "First come, first served. Registration closes once 12 registrations are confirmed.";
+  }
+  setText('[data-bind="registrationNote"]', noteText);
+
+  // Register buttons: point to the Google Form, or disable when closed.
+  document.querySelectorAll("[data-register]").forEach(function (btn) {
+    if (!isOpen) {
+      btn.textContent = "Registrations closed";
+      btn.setAttribute("aria-disabled", "true");
+      btn.classList.add("is-disabled");
+      btn.setAttribute("href", "#register");
+      btn.addEventListener("click", function (e) { e.preventDefault(); });
+      return;
+    }
+    if (formReady) {
+      btn.setAttribute("href", cfg.googleFormUrl);
+      btn.setAttribute("target", "_blank");
+      btn.setAttribute("rel", "noopener");
+    } else {
+      btn.setAttribute("href", "#register");
+      console.warn("ABCD: googleFormUrl is still a placeholder in js/config.js");
+    }
+  });
+
+  // Instagram and other social links.
+  if (!isPlaceholder(cfg.instagramUrl)) {
+    document.querySelectorAll("[data-instagram]").forEach(function (a) {
+      a.setAttribute("href", cfg.instagramUrl);
+      a.setAttribute("target", "_blank");
+      a.setAttribute("rel", "noopener");
+      a.hidden = false;
+    });
+  }
+  var igLink = document.getElementById("instagram-link");
+  var contactPlaceholder = document.getElementById("contact-placeholder");
+  if (contactPlaceholder && igLink && !igLink.hidden) {
+    contactPlaceholder.hidden = true;
+  }
+
+  // Art gallery.
+  var grid = document.getElementById("gallery-grid");
+  var galleryEmpty = document.getElementById("gallery-empty");
+  if (grid && Array.isArray(cfg.gallery) && cfg.gallery.length) {
+    cfg.gallery.forEach(function (item) {
+      var fig = document.createElement("figure");
+      var img = document.createElement("img");
+      img.src = item.src;
+      img.alt = item.caption || "Artwork from an ABCD session";
+      fig.appendChild(img);
+      if (item.caption) {
+        var cap = document.createElement("figcaption");
+        cap.textContent = item.caption;
+        fig.appendChild(cap);
+      }
+      grid.appendChild(fig);
+    });
+    if (galleryEmpty) galleryEmpty.hidden = true;
+  }
+
+  // Footer year.
+  var year = document.getElementById("year");
+  if (year) year.textContent = new Date().getFullYear();
+})();
+
+</script>
+</body>
+</html>
