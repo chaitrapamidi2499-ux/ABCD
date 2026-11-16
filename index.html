@@ -53,7 +53,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   border-radius: 4px;
 }
 
-h1, h2, h3 { font-family: var(--font-display); font-weight: 600; line-height: 1.2; margin: 0 0 0.5em; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 600; line-height: 1.2; margin: 0 0 0.5em; text-align: center; }
 h2 { font-size: clamp(1.5rem, 4vw, 2rem); }
 h3 { font-size: 1.15rem; margin-top: 1.4em; }
 p { margin: 0 0 1em; }
@@ -151,9 +151,11 @@ code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; ba
 .section { max-width: var(--max); margin: 0 auto; padding: 3rem 1.25rem; }
 .section-tint {
   background: linear-gradient(180deg, transparent, rgba(220, 232, 245, 0.45) 20%, rgba(220, 232, 245, 0.45) 80%, transparent);
-  max-width: none; padding-left: 1.25rem; padding-right: 1.25rem;
+  max-width: none;
+  padding-left: max(1.25rem, calc((100% - var(--max)) / 2 + 1.25rem));
+  padding-right: max(1.25rem, calc((100% - var(--max)) / 2 + 1.25rem));
 }
-.section-tint > * { max-width: var(--max); margin-left: auto; margin-right: auto; }
+.section-tint > * { max-width: calc(var(--max) - 2.5rem); margin-left: auto; margin-right: auto; }
 .section-tint > h2 { margin-top: 0; }
 
 /* Timeline */
@@ -246,7 +248,7 @@ code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; ba
 /* Mobile */
 @media (max-width: 600px) {
   .hero { padding-top: 2.5rem; }
-    .site-header { justify-content: center; text-align: center; }
+  .site-header { justify-content: center; text-align: center; }
   .site-nav { flex-wrap: wrap; justify-content: center; overflow: visible; gap: 0.4rem 1rem; }
   .site-nav a { font-size: 0.85rem; }
   .nav-sep { display: none; }
@@ -263,6 +265,7 @@ code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; ba
 }
 
 h2 { color: var(--sage-deep); }
+#cancellation h3 { text-align: left; }
   </style>
 </head>
 <body>
@@ -289,7 +292,7 @@ h2 { color: var(--sage-deep); }
 
     <!-- HERO -->
     <section class="hero" id="top">
-      <p class="eyebrow">Any Body Can Draw · Crafterina</p>
+      <p class="eyebrow">Any Body Can Draw · by Crafterina</p>
       <h1>ABCD</h1>
       <p class="tagline">NO SKILLS. NO RULES. JUST ART.</p>
       <p class="lead">
@@ -417,7 +420,7 @@ h2 { color: var(--sage-deep); }
 
       <ol class="steps">
         <li>
-          <strong>Register here.</strong> Click the button below and fill in the registration form.
+          <strong>Register Here.</strong> Click the button below and fill in the registration form.
         </li>
         <li>
           <strong>Pay ₹100</strong> through Google Pay, PhonePe or any UPI app, and upload your payment screenshot in the form.
@@ -566,7 +569,7 @@ h2 { color: var(--sage-deep); }
 
   <footer class="site-footer">
     <p><strong>ABCD</strong> · Any Body Can Draw · Crafterina</p>
-    <p class="small">Recreational Art Gathering.</p>
+    <p class="small">Recreational art gathering.</p>
     <p class="small">© <span id="year"></span> ABCD by Crafterina</p>
   </footer>
 
