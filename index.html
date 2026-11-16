@@ -120,13 +120,12 @@ code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; ba
 .status:empty { display: none; }
 
 .doodle { position: absolute; fill: none; stroke: var(--gold); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; opacity: 0.8; pointer-events: none; }
-.doodle-sun { width: 90px; height: 90px; top: 1rem; right: 0.5rem; }
 .doodle-squiggle { width: 160px; height: 32px; bottom: 1.25rem; left: 50%; transform: translateX(-50%); stroke: var(--sage); }
 
 /* Buttons */
 .actions { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; margin: 1rem 0; }
 .btn {
-  display: inline-block; padding: 0.8rem 1.4rem; border-radius: 999px;
+  display: inline-block; text-align: center; padding: 0.8rem 1.4rem; border-radius: 999px;
   font-weight: 600; font-size: 0.98rem; text-decoration: none; border: 2px solid transparent;
   transition: transform 0.15s ease, background-color 0.15s ease;
 }
@@ -246,10 +245,14 @@ code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; ba
 /* Mobile */
 @media (max-width: 600px) {
   .hero { padding-top: 2.5rem; }
-  .doodle-sun { width: 60px; height: 60px; }
-  .site-header { justify-content: center; text-align: center; }
+    .site-header { justify-content: center; text-align: center; }
+  .site-nav { flex-wrap: wrap; justify-content: center; overflow: visible; gap: 0.4rem 1rem; }
+  .site-nav a { font-size: 0.85rem; }
+  .nav-sep { display: none; }
+  .facts { grid-template-columns: 1fr 1fr; gap: 1.75rem 1rem; padding: 2rem 1rem; }
+  .facts li:last-child { grid-column: 1 / -1; }
   .btn { width: 100%; max-width: 320px; }
-  .actions { flex-direction: column; align-items: center; }
+  .actions, .host-actions { flex-direction: column; align-items: center; justify-content: center; }
   .timeline td, .timeline th { padding: 0.6rem 0.7rem; font-size: 0.95rem; }
 }
 
@@ -296,11 +299,6 @@ h2 { color: var(--sage-deep); }
         <a class="btn btn-primary" data-register href="#register">Register Now</a>
         <a class="btn btn-ghost" href="#session">How The Session Works</a>
       </div>
-
-      <svg class="doodle doodle-sun" viewBox="0 0 120 120" aria-hidden="true" focusable="false">
-        <circle cx="60" cy="60" r="24" />
-        <path d="M60 14v-6M60 112v-6M14 60H8M112 60h-6M28 28l-4-4M96 96l-4-4M92 28l4-4M24 96l-4 4" />
-      </svg>
       <svg class="doodle doodle-squiggle" viewBox="0 0 200 40" aria-hidden="true" focusable="false">
         <path d="M4 20 C 20 0, 36 40, 52 20 S 84 0, 100 20 S 132 40, 148 20 S 180 0, 196 20" />
       </svg>
