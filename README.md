@@ -36,7 +36,9 @@ Instagram: [@chaitra.artz](https://www.instagram.com/chaitra.artz/)
 
 ## Our Philosophy
 
-*A little time to create, a little space to breathe, and a lot of joy to take home.*
+*ABCD isn't about becoming an artist. It's about giving yourself the space to create, explore, connect and enjoy being yourself.
+
+A little time to create, a little space to breathe, and a lot of joy to take home.*
 
 ---
 
